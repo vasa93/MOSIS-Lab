@@ -44,6 +44,7 @@ public class MyPlacesList extends ActionBarActivity {
                 menu.setHeaderTitle(place.getName());
                 menu.add(0, 1, 1, "View place");
                 menu.add(0, 2, 2, "Edit place");
+                menu.add(0, 3, 3, "Delete place");
             }
         });
 
@@ -103,7 +104,16 @@ public class MyPlacesList extends ActionBarActivity {
             i.putExtras(positionBundle);
             startActivity(i);
         }
+        else if(item.getItemId() == 3) {
+            MyPlacesData.getInstance().deletePlace(info.position);
+            setList();
+        }
 
         return super.onContextItemSelected(item);
+    }
+
+    public void setList() {
+        ListView myPlaceList = (ListView) findViewById(R.id.my_places_list);
+        myPlaceList.setAdapter(new ArrayAdapter<MyPlace>(this, android.R.layout.simple_list_item_1, MyPlacesData.getInstance().getMyPlaces()));
     }
 }

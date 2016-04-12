@@ -1,5 +1,8 @@
 package com.example.mn.myplaces;
 
+import android.util.Log;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -7,6 +10,8 @@ import java.util.ArrayList;
  */
 public class MyPlacesData {
     private ArrayList<MyPlace> myPlaces;
+
+    MyPlacesDBAdapter dbAdapter;
 
     public ArrayList<MyPlace> getMyPlaces() {
         return myPlaces;
@@ -18,12 +23,15 @@ public class MyPlacesData {
 
     private MyPlacesData() {
         myPlaces = new ArrayList<MyPlace>();
-
-        myPlaces.add(new MyPlace("Place A"));
-        myPlaces.add(new MyPlace("Place B"));
-        myPlaces.add(new MyPlace("Place C"));
-        myPlaces.add(new MyPlace("Place D"));
-        myPlaces.add(new MyPlace("Place E"));
+        dbAdapter = new MyPlacesDBAdapter(MyPlacesApplication.getContext());
+        try {
+            dbAdapter.open();
+            this.myPlaces = dbAdapter.getAllEntries();
+        } catch (SQLException e) {
+            Log.v("MyPlacesData", e.getMessage());
+        } finally {
+            dbAdapter.close();
+        }
     }
 
     private static  class SingletonHolder {
@@ -36,6 +44,16 @@ public class MyPlacesData {
 
     public void addNewPlace(MyPlace myPlace) {
         myPlaces.add(myPlace);
+
+        try {
+            dbAdapter.open();
+            long id = dbAdapter.insertEntry(myPlace);
+            myPlace.setId(id);
+        } catch (SQLException e) {
+            Log.v("MyPlacesData", e.getMessage());
+        } finally {
+            dbAdapter.close();
+        }
     }
 
     public MyPlace getPlace(int index) {
@@ -43,6 +61,26 @@ public class MyPlacesData {
     }
 
     public void deletePlace(int index) {
-        myPlaces.remove(index);
+        MyPlace place = myPlaces.remove(index);
+
+        try {
+            dbAdapter.open();
+            boolean success = dbAdapter.removeEntry(place.getId());
+        } catch (SQLException e) {
+            Log.v("MyPlacesData", e.getMessage());
+        } finally {
+            dbAdapter.close();
+        }
+    }
+
+    public void updatePlace(MyPlace place) {
+        try {
+            dbAdapter.open();
+            dbAdapter.updateEntry(place.getId(), place);
+        } catch (SQLException e) {
+            Log.v("MyPlacesData", e.getMessage());
+        } finally {
+            dbAdapter.close();
+        }
     }
 }
