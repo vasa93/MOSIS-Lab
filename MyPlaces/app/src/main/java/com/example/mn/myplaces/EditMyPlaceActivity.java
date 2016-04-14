@@ -47,6 +47,12 @@ public class EditMyPlaceActivity extends ActionBarActivity implements View.OnCli
             nameEditText.setText(place.getName());
             EditText descEditText = (EditText)findViewById(R.id.editmyplace_desc_edit);
             descEditText.setText(place.getDescription());
+
+            EditText longEditText = (EditText)findViewById(R.id.editmyplace_lon_edit);
+            longEditText.setText(place.getLongitude());
+
+            EditText latEditText = (EditText)findViewById(R.id.editmyplace_lat_edit);
+            latEditText.setText(place.getLatitude());
         }
         cancelButton.setOnClickListener(this);
         finishedButton.setOnClickListener(this);
