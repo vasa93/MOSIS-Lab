@@ -59,12 +59,9 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/editmyplace_finished_button"
-            android:layout_weight="1"/>
-        <Button
-            android:id="@+id/editmyplace_cancel_button"
-            android:layout_weight="1"
-            android:text="@string/editmyplace_cancel_label"/>
+            android:id="@+id/editmyplace_location_button"
+            android:text="@string/editmyplace_location_label"/>
+        android:layout_weight="1"/>
     </TableRow>
 
     <TableRow
@@ -72,8 +69,11 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/editmyplace_location_button"
-            android:text="@string/editmyplace_location_label"/>
+            android:id="@+id/editmyplace_finished_button"
             android:layout_weight="1"/>
+        <Button
+            android:id="@+id/editmyplace_cancel_button"
+            android:layout_weight="1"
+            android:text="@string/editmyplace_cancel_label"/>
     </TableRow>
 </LinearLayout>

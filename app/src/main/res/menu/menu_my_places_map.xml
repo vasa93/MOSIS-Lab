@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/new_place_item" android:title="@string/new_place"
+        android:orderInCategory="100" app:showAsAction="ifRoom" android:icon="@drawable/ic_action_new"/>
+    <item android:id="@+id/my_place_list_item" android:title="@string/my_place_list"
+        android:orderInCategory="100" app:showAsAction="never" android:icon="@drawable/ic_action_view_as_list" />
+    <item android:id="@+id/about_item" android:title="@string/about"
+        android:orderInCategory="100" app:showAsAction="never" android:icon="@drawable/ic_action_about"/>
+</menu>

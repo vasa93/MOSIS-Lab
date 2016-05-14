@@ -72,6 +72,9 @@ public class EditMyPlaceActivity extends ActionBarActivity implements View.OnCli
                 finishedButton.setEnabled(editable.length() > 0);
             }
         });
+
+        Button locationButton = (Button) findViewById(R.id.editmyplace_location_button);
+        locationButton.setOnClickListener(this);
     }
 
     @Override
@@ -90,7 +93,8 @@ public class EditMyPlaceActivity extends ActionBarActivity implements View.OnCli
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.show_map_item) {
-            Toast.makeText(this, "Show map", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, MyPlacesMapActivity.class);
+            startActivity(i);
         }
         else if (id == R.id.my_place_list_item) {
             Intent i = new Intent(this, MyPlacesList.class);
@@ -105,8 +109,7 @@ public class EditMyPlaceActivity extends ActionBarActivity implements View.OnCli
     }
 
     @Override
-    public void onClick(View view)
-    {
+    public void onClick(View view) {
         switch (view.getId())
         {
             case R.id.editmyplace_finished_button:
@@ -140,6 +143,29 @@ public class EditMyPlaceActivity extends ActionBarActivity implements View.OnCli
                 setResult(Activity.RESULT_CANCELED);
                 finish();
                 break;
+            case  R.id.editmyplace_location_button:
+                Intent i = new Intent(this, MyPlacesMapActivity.class);
+                i.putExtra("state", MyPlacesMapActivity.SELECT_COORDINATES);
+                startActivityForResult(i, 1);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        if(resultCode == Activity.RESULT_OK) {
+            try {
+                String lon = data.getExtras().getString("lon");
+                EditText lonText = (EditText)findViewById(R.id.editmyplace_lon_edit);
+                lonText.setText(lon);
+                String lat = data.getExtras().getString("lat");
+                EditText latText = (EditText)findViewById(R.id.editmyplace_lat_edit);
+                latText.setText(lat);
+            }
+            catch (Exception e) {
+                //TODO: handle exception
+            }
         }
     }
 }
