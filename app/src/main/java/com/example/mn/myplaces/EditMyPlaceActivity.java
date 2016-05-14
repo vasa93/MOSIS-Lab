@@ -72,9 +72,6 @@ public class EditMyPlaceActivity extends ActionBarActivity implements View.OnCli
                 finishedButton.setEnabled(editable.length() > 0);
             }
         });
-
-        Button locationButton = (Button) findViewById(R.id.editmyplace_location_button);
-        locationButton.setOnClickListener(this);
     }
 
     @Override
@@ -142,10 +139,6 @@ public class EditMyPlaceActivity extends ActionBarActivity implements View.OnCli
             case  R.id.editmyplace_cancel_button:
                 setResult(Activity.RESULT_CANCELED);
                 finish();
-                break;
-            case R.id.editmyplace_location_button:
-                Intent i = new Intent(this, MyPlacesMapActivity.class);
-                startActivityForResult(i, 1);
                 break;
         }
     }

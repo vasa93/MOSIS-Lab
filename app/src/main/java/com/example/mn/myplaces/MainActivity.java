@@ -34,8 +34,7 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.show_map_item) {
-            Intent i = new Intent(this, MyPlacesMapActivity.class);
-            startActivity(i);
+            Toast.makeText(this,"Show map",Toast.LENGTH_SHORT).show();
         }
         else if (id == R.id.new_place_item) {
             Intent i = new Intent(this, EditMyPlaceActivity.class);
